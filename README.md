@@ -25,5 +25,5 @@ Template designed to dynamically display information obtained from __Nmap Scan__
 
 > - Example
 > ```ruby
-> xsltproc -o Report.html scanoutput.xml nmap_template_report.xsl
+> xsltproc scanoutput.xml nmap_template_report.xsl -o Report.html 
 > ```
