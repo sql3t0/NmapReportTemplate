@@ -231,7 +231,7 @@
                         return _map;
                       };
 
-                      arrHasCve = [{"label":"Without CVE" ,"y": <xsl:value-of select="/nmaprun/runstats/hosts/@up"/> }, { "label": "With CVE", "y": buildMap(keys, values).size } ]
+                      arrHasCve = [{"label":"Without CVE" ,"y": <xsl:value-of select="/nmaprun/runstats/hosts/@up"/>-buildMap(keys, values).size }, { "label": "With CVE", "y": buildMap(keys, values).size } ]
 
                       arrPorts = table.columns(2).data().toArray()[0];
                       var map = arrPorts.sort().reduce(function(prev, cur) {
