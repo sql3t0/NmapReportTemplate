@@ -21,7 +21,7 @@ Template designed to dynamically display information obtained from __Nmap Scan__
 > nmap --open -A -T4 -F --script vulners -oX scanoutput.xml --stylesheet nmap_template_report.xsl 192.168.0.1-254
 > ```
 
-2. Genarete the report `html` using the tool `xsltptoc`.
+2. Genarete the report `html` using the tool `xsltproc`.
 
 > - Example
 > ```ruby
