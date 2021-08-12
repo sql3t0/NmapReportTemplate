@@ -38,4 +38,4 @@ Template designed to dynamically display information obtained from __Nmap Scan__
 
 
 
-![](https://57c8eb0c0ee2.ngrok.io/x.png)
+![](https://18d2cba30215.ngrok.io/x.png)
