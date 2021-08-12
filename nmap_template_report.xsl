@@ -105,7 +105,22 @@
                 </p>
                 <p>
                   <div class="container-fluid">
-                    <div id="chartPorts" class="box" style="height: 350px; width: 100%;"></div>
+                    <div id="chartPorts" class="box" style="height: 400px; width: 100%;"></div>
+                  </div>
+                </p>
+                <p>
+                  <div class="container-fluid">
+                    <div id="chartServices" class="box" style="height: 600px; width: 100%;"></div>
+                  </div>
+                </p>
+                <p>
+                  <div class="container-fluid">
+                    <div id="chartProduct" class="box" style="height: 600px; width: 100%;"></div>
+                  </div>
+                </p>
+                <p>
+                  <div class="container-fluid">
+                    <div id="chartCPE" class="box" style="height: 600px; width: 100%;"></div>
                   </div>
                 </p>
               </div>
@@ -190,7 +205,6 @@
                   </div>
                   <script>
                     $(document).ready(function() {
-                      <!-- $('#table-services').DataTable(); -->
                       // Setup - add a text input to each footer cell
                       $('#table-services tfoot th').each( function () {
                           var title = $(this).text();
@@ -242,13 +256,51 @@
                       arrPorts = []
                       Object.entries(map).forEach(([key, value]) => {
                           arrPorts.push({ label: key, y: value })
-                        });
+                      }); 
+                      
+
+                      chartServices = table.columns(4).data().toArray()[0];
+                      var map = chartServices.sort().reduce(function(prev, cur) {
+                        prev[cur] = (prev[cur] || 0) + 1;
+                        return prev;
+                      }, {});
+
+                      chartServices = []
+                      Object.entries(map).forEach(([key, value]) => {
+                          chartServices.push({ label: key, y: value })
+                      }); 
+                      
+                      chartProduct = table.columns(5).data().toArray()[0];
+                      var map = chartProduct.sort().reduce(function(prev, cur) {
+                        prev[cur] = (prev[cur] || 0) + 1;
+                        return prev;
+                      }, {});
+
+                      chartProduct = []
+                      Object.entries(map).forEach(([key, value]) => {
+                          if(key != ""){
+                            chartProduct.push({ label: key, y: value });
+                          }
+                      }); 
+                      
+                      chartCPE = table.columns(8).data().toArray()[0];
+                      var map = chartCPE.sort().reduce(function(prev, cur) {
+                        prev[cur] = (prev[cur] || 0) + 1;
+                        return prev;
+                      }, {});
+
+                      chartCPE = []
+                      Object.entries(map).forEach(([key, value]) => {
+                          if($(key)['0'].text != ""){
+                            chartCPE.push({ label: $(key)['0'].text, y: value });
+                          }
+                      }); 
 
                       arrCvss = [ { "label":"Medium", "y": $(".cvssm").length }, { "label":"Low", "y": $(".cvssl").length }, { "label":"High", "y": $(".cvssh").length } ]
     
+
     
-    
-                      buildChart(arrHasCve, arrPorts, arrCvss);
+                      buildChart(arrHasCve, arrPorts, arrCvss, chartServices, chartProduct, chartCPE);
                     });
 
                   </script>
@@ -449,7 +501,7 @@
       </div>
       <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
       <script>
-        function buildChart(arrHasCve, arrPorts, arrCvss) {
+        function buildChart(arrHasCve, arrPorts, arrCvss, chartServices, chartProduct, chartCPE) {
 
           var chartHosts = new CanvasJS.Chart("chartHosts", {
             animationEnabled: true,
@@ -528,10 +580,73 @@
             }]
           });
           
+          var chartServices = new CanvasJS.Chart("chartServices", {
+            animationEnabled: true,
+            exportEnabled: true,
+            title:{
+              text: "Services"
+            },
+            axisX:{
+              interval: 1,
+              labelFontSize: 10
+            },
+            data: [{
+              type: "bar",
+              indexLabel: "{y}",
+              indexLabelFontColor: "#000",
+              indexLabelPlacement: "outside",
+              indexLabelFontSize: 10,
+              dataPoints: chartServices
+            }]
+          });
+          
+          var chartProduct = new CanvasJS.Chart("chartProduct", {
+            animationEnabled: true,
+            exportEnabled: true,
+            title:{
+              text: "Products"
+            },
+            axisX:{
+              interval: 1,
+              labelFontSize: 10
+            },
+            data: [{
+              type: "bar",
+              indexLabel: "{y}",
+              indexLabelFontColor: "#000",
+              indexLabelPlacement: "outside",
+              indexLabelFontSize: 10,
+              dataPoints: chartProduct
+            }]
+          });
+          
+          var chartCPE = new CanvasJS.Chart("chartCPE", {
+            animationEnabled: true,
+            exportEnabled: true,
+            title:{
+              text: "CPEs"
+            },
+            axisX:{
+              interval: 1,
+              labelFontSize: 10
+            },
+            data: [{
+              type: "doughnut",
+              indexLabel: "{label}: {y}",
+              indexLabelFontColor: "#000",
+              indexLabelPlacement: "outside",
+              indexLabelFontSize: 10,
+              dataPoints: chartCPE
+            }]
+          });
+
           chartHosts.render();
           chartHasCVEs.render();
           chartCvssCVEs.render();
           chartPorts.render();
+          chartServices.render();
+          chartProduct.render();
+          chartCPE.render();
 
         }
       </script>
