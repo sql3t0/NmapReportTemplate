@@ -12,6 +12,12 @@ Template designed to dynamically display information obtained from __Nmap Scan__
 
 ![img04](./imgs/img04.png)
 
+![img05](./imgs/img05.png)
+
+![img06](./imgs/img06.png)
+
+![img07](./imgs/img07.png)
+
 ## Usage
 
 1. Download the `nmap_template_report.xsl` file and, when running __Nmap__, pass the file as a `stylesheet`.
