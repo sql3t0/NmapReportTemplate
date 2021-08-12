@@ -6,17 +6,17 @@ Template designed to dynamically display information obtained from __Nmap Scan__
 
 ![img01](./imgs/img01.png)
 
-![img02](./imgs/img02.png)
-
-![img03](./imgs/img03.png)
-
-![img04](./imgs/img04.png)
-
 ![img05](./imgs/img05.png)
 
 ![img06](./imgs/img06.png)
 
 ![img07](./imgs/img07.png)
+
+![img02](./imgs/img02.png)
+
+![img03](./imgs/img03.png)
+
+![img04](./imgs/img04.png)
 
 ## Usage
 
